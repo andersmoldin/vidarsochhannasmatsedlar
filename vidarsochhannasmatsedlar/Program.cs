@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace vidarsochhannasmatsedlar
 {
@@ -6,7 +7,7 @@ namespace vidarsochhannasmatsedlar
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine($"Token: {Environment.GetEnvironmentVariable("token")}, versionsID: {Environment.GetEnvironmentVariable("versionsID")}");
         }
     }
 }
