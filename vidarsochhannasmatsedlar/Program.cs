@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using ServiceStack;
+using Skolmaten;
 
 namespace vidarsochhannasmatsedlar
 {
@@ -10,6 +11,44 @@ namespace vidarsochhannasmatsedlar
     {
         static void Main(string[] args)
         {
+            foreach (Province province in API.GetProvinces())
+            {
+                Console.WriteLine($"{province.Id}: {province.Name}");
+            }
+
+            Console.WriteLine();
+
+            foreach (District district in API.GetDistrict(5758661280399360.ToString()))
+            {
+                Console.WriteLine($"{district.Id}: {district.Name}");
+            }
+
+            Console.WriteLine();
+
+            foreach (School school in API.GetSchool(189001.ToString()))
+            {
+                Console.WriteLine($"{school.Id}: {school.Name}");
+            }
+
+            Console.WriteLine();
+
+            foreach (Week week in API.GetMenu(5605611798528000.ToString()))
+            {
+                foreach (var day in week.Days)
+                {
+                    foreach (var item in day.Items)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+            }
+
+            var hej = $"https://skolmaten.se/api/3/schools/?district=189001"
+                .GetJsonFromUrl(webReq =>
+                {
+                    webReq.Headers["User-Agent"] = "request";
+                    webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
+                });
             //Console.WriteLine($"Token: {Environment.GetEnvironmentVariable("token")}, versionsID: {Environment.GetEnvironmentVariable("versionsID")}");
             
             //var hej = $"https://skolmaten.se/api/3/schools/?district=189001"
@@ -19,12 +58,12 @@ namespace vidarsochhannasmatsedlar
             //        webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
             //    });
 
-            Menu menu = $"https://skolmaten.se/api/3/menu/?school=5605611798528000"
-                .GetJsonFromUrl(webReq => {
-                    webReq.Headers["User-Agent"] = "request";
-                    webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
-                })
-                .FromJson<Menu>();
+            //Menu menu = $"https://skolmaten.se/api/3/menu/?school=5605611798528000"
+                //.GetJsonFromUrl(webReq => {
+                //    webReq.Headers["User-Agent"] = "request";
+                //    webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
+                //})
+                //.FromJson<Menu>();
 
             Console.WriteLine($"Veckans mat för {menu.School.Name + Environment.NewLine}");
 
@@ -69,62 +108,5 @@ namespace vidarsochhannasmatsedlar
 
         //    return result;
         //}
-    }
-
-    internal class Response
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class Menu
-    {
-        public List<Week> Weeks { get; set; }
-        public School School { get; set; }
-        public List<string> Bulletins { get; set; }
-    }
-
-    public class School
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string URLName { get; set; }
-        public string ImageURL { get; set; }
-        public District District { get; set; }
-    }
-
-    public class District
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string URLName { get; set; }
-        public Province Province { get; set; }
-    }
-
-    public class Province
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string URLName { get; set; }
-    }
-
-    public class Week
-    {
-        public int Year { get; set; }
-        public int Number { get; set; }
-        public List<Day> Days { get; set; }
-    }
-
-    public class Day
-    {
-        public int Date { get; set; }
-        public List<Meal> Meals { get; set; }
-        public List<string> Items { get; set; }
-    }
-
-    public class Meal
-    {
-        public string Value { get; set; }
-        public List<int> Attributes { get; set; }
     }
 }

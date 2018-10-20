@@ -10,4 +10,7 @@
     <PackageReference Include="ServiceStack.HttpClient.Core" Version="5.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SkolmatenAPI\Skolmaten.csproj" />
+  </ItemGroup>
 </Project>
