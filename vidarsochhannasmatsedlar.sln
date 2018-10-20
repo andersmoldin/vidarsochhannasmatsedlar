@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vidarsochhannasmatsedlar", "vidarsochhannasmatsedlar\vidarsochhannasmatsedlar.csproj", "{DAE3D20B-DDDC-4245-88AE-1A61F4F0BFC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skolmaten", "SkolmatenAPI\Skolmaten.csproj", "{4F984C28-462C-466D-937E-E22632AB6BB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DAE3D20B-DDDC-4245-88AE-1A61F4F0BFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAE3D20B-DDDC-4245-88AE-1A61F4F0BFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAE3D20B-DDDC-4245-88AE-1A61F4F0BFC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F984C28-462C-466D-937E-E22632AB6BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F984C28-462C-466D-937E-E22632AB6BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F984C28-462C-466D-937E-E22632AB6BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F984C28-462C-466D-937E-E22632AB6BB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
