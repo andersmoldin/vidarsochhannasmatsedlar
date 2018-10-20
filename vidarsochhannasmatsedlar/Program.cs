@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using ServiceStack;
 
@@ -9,12 +10,14 @@ namespace vidarsochhannasmatsedlar
     {
         static void Main(string[] args)
         {
-            var hej = $"https://skolmaten.se/api/3/schools/?district=189001"
-                .GetJsonFromUrl(webReq =>
-                {
-                    webReq.Headers["User-Agent"] = "request";
-                    webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
-                });
+            //Console.WriteLine($"Token: {Environment.GetEnvironmentVariable("token")}, versionsID: {Environment.GetEnvironmentVariable("versionsID")}");
+            
+            //var hej = $"https://skolmaten.se/api/3/schools/?district=189001"
+            //    .GetJsonFromUrl(webReq =>
+            //    {
+            //        webReq.Headers["User-Agent"] = "request";
+            //        webReq.Headers["Client"] = Environment.GetEnvironmentVariable("token");
+            //    });
 
             Menu menu = $"https://skolmaten.se/api/3/menu/?school=5605611798528000"
                 .GetJsonFromUrl(webReq => {
@@ -23,7 +26,26 @@ namespace vidarsochhannasmatsedlar
                 })
                 .FromJson<Menu>();
 
-            Console.WriteLine($"Token: {Environment.GetEnvironmentVariable("token")}, versionsID: {Environment.GetEnvironmentVariable("versionsID")}");
+            Console.WriteLine($"Veckans mat för {menu.School.Name + Environment.NewLine}");
+
+            foreach (var week in menu.Weeks)
+            {
+                foreach (var day in week.Days)
+                {
+                    var date = DateTimeOffset.FromUnixTimeSeconds(day.Date).DateTime.ToString(@"dddd dd\/MM", CultureInfo.CreateSpecificCulture("sv-se"));
+
+                    Console.WriteLine($"  {char.ToUpper(date[0]) + date.Substring(1)}");
+
+                    foreach (var item in day.Items)
+                    {
+                        Console.WriteLine($"- {item}");
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+            }
         }
 
         public string GetReleases(string url)
